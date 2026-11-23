@@ -1,0 +1,599 @@
+/* ==========================================
+   BLUE GROW — MAIN DESIGN SYSTEM
+   File: css/main.css
+========================================== */
+
+:root {
+    /* Brand */
+    --blue: #4388f7;
+    --blue-light: #70a8ff;
+    --blue-dark: #2864ca;
+    --blue-soft: #1f385b;
+
+    /* Background */
+    --bg: #10141c;
+    --bg-secondary: #151a23;
+    --bg-tertiary: #1a202b;
+
+    /* Panels */
+    --panel: #1c232e;
+    --panel-light: #232c39;
+    --panel-hover: #293444;
+
+    /* Border */
+    --border: #303b4b;
+    --border-light: #3b485c;
+
+    /* Text */
+    --text: #edf2fa;
+    --text-secondary: #a5b2c5;
+    --text-muted: #748298;
+
+    /* Status */
+    --success: #4ade80;
+    --warning: #facc15;
+    --danger: #fb7185;
+    --info: #60a5fa;
+
+    /* Layout */
+    --sidebar-width: 235px;
+    --topbar-height: 76px;
+
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+
+    /* Shadow */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, .15);
+    --shadow-md: 0 8px 25px rgba(0, 0, 0, .20);
+    --shadow-lg: 0 18px 55px rgba(0, 0, 0, .35);
+
+    /* Transition */
+    --transition-fast: .15s ease;
+    --transition-normal: .25s ease;
+}
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #39485c #151a23;
+}
+
+body {
+    min-width: 320px;
+    min-height: 100vh;
+
+    background: var(--bg);
+    color: var(--text);
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+
+    overflow-x: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* ==========================================
+   GAME ROOT
+========================================== */
+
+#game {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+
+/* ==========================================
+   LOADING SCREEN
+========================================== */
+
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    background: #10141c;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    transition: opacity .5s ease, visibility .5s ease;
+}
+
+#loading-screen.loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loading-logo {
+    font-family: "Jua", sans-serif;
+    font-size: 34px;
+    color: white;
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+}
+
+.loading-bar {
+    width: 220px;
+    height: 7px;
+    background: #273141;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+#loading-progress {
+    height: 100%;
+    width: 0%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #4388f7, #78b2ff);
+    transition: width .3s ease;
+}
+
+#loading-text {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+
+/* ==========================================
+   TOP BAR
+========================================== */
+
+#topbar {
+    width: 100%;
+    height: var(--topbar-height);
+
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    padding: 0 24px;
+
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
+/* ==========================================
+   GAME LAYOUT
+========================================== */
+
+#game-layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    min-height: calc(100vh - var(--topbar-height));
+}
+
+
+/* ==========================================
+   SIDEBAR
+========================================== */
+
+#sidebar {
+    width: var(--sidebar-width);
+    min-height: calc(100vh - var(--topbar-height));
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border);
+
+    padding: 18px 14px;
+
+    position: relative;
+}
+
+#navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 18px 8px 4px;
+}
+
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+#content {
+    min-width: 0;
+    width: 100%;
+
+    padding: 26px;
+}
+
+.page {
+    display: none;
+    width: 100%;
+    animation: pageEnter .22s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ==========================================
+   PAGE HEADERS
+========================================== */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.page-header h2 {
+    font-family: "Jua", sans-serif;
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: -.4px;
+}
+
+.page-header p {
+    margin-top: 5px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.date-label {
+    color: var(--text-secondary);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 9px 14px;
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   DASHBOARD
+========================================== */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.dashboard-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 17px;
+    min-width: 0;
+
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+
+    transition: var(--transition-fast);
+}
+
+.dashboard-card:hover {
+    background: var(--panel-light);
+    border-color: var(--border-light);
+    transform: translateY(-2px);
+}
+
+.dashboard-card > div:last-child {
+    min-width: 0;
+}
+
+.dashboard-card span {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.dashboard-card strong {
+    display: block;
+    font-family: "Jua", sans-serif;
+    font-size: 21px;
+    margin-top: 3px;
+    white-space: nowrap;
+}
+
+.dashboard-card-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #28364a;
+    border-radius: 12px;
+    font-size: 19px;
+}
+
+
+/* ==========================================
+   QUICK ACTIONS
+========================================== */
+
+.quick-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+
+/* ==========================================
+   COMMON PANEL
+========================================== */
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+}
+
+.panel-title {
+    font-family: "Jua", sans-serif;
+    font-size: 17px;
+    margin-bottom: 14px;
+}
+
+
+/* ==========================================
+   UTILITIES
+========================================== */
+
+.hidden {
+    display: none !important;
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+.text-blue {
+    color: var(--blue-light);
+}
+
+.text-green {
+    color: var(--success);
+}
+
+.text-yellow {
+    color: var(--warning);
+}
+
+.text-red {
+    color: var(--danger);
+}
+
+.mt-1 { margin-top: 5px; }
+.mt-2 { margin-top: 10px; }
+.mt-3 { margin-top: 15px; }
+.mt-4 { margin-top: 20px; }
+
+.w-full {
+    width: 100%;
+}
+
+
+/* ==========================================
+   SCROLLBARS
+========================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #151a23;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #39485c;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #50627c;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1200px) {
+
+    :root {
+        --sidebar-width: 210px;
+    }
+
+    #content {
+        padding: 20px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+@media (max-width: 850px) {
+
+    :root {
+        --sidebar-width: 180px;
+        --topbar-height: 68px;
+    }
+
+    #topbar {
+        padding: 0 14px;
+        gap: 12px;
+    }
+
+    .top-stats {
+        gap: 6px;
+    }
+
+    .stat {
+        min-width: auto;
+        padding: 7px 10px;
+    }
+
+    #content {
+        padding: 16px;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    #topbar {
+        height: auto;
+        min-height: 68px;
+        flex-wrap: wrap;
+        padding: 12px;
+    }
+
+    .top-stats {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #game-layout {
+        grid-template-columns: 1fr;
+    }
+
+    #sidebar {
+        width: 100%;
+        min-height: auto;
+        height: auto;
+
+        padding: 10px;
+
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .player-card {
+        display: none;
+    }
+
+    #navigation {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 5px;
+    }
+
+    .sidebar-bottom {
+        display: none;
+    }
+
+    #content {
+        padding: 14px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .dashboard-card {
+        padding: 12px;
+    }
+
+    .page-header h2 {
+        font-size: 22px;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header {
+        align-items: flex-start;
+    }
+}
