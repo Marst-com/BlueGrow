@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>거지 김블루 키우기</title>
+
+    <meta name="description" content="김블루의 유튜버 성장 팬게임">
+    <meta name="theme-color" content="#10141c">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="css/room.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         GAME ROOT
+    ========================== -->
+    <div id="game">
+
+        <!-- Loading Screen -->
+        <div id="loading-screen">
+            <div class="loading-logo">거지 김블루 키우기</div>
+            <div class="loading-bar">
+                <div id="loading-progress"></div>
+            </div>
+            <p id="loading-text">게임 준비 중...</p>
+        </div>
+
+
+        <!-- =========================
+             TOP STATUS BAR
+        ========================== -->
+        <header id="topbar">
+
+            <div class="game-brand">
+                <div class="brand-icon" id="brand-image">
+                    <img src="assets/images/kimblue/profile.png"
+                         alt="김블루"
+                         onerror="this.style.display='none'">
+                </div>
+
+                <div class="brand-text">
+                    <h1>거지 김블루 키우기</h1>
+                    <span>YOUTUBER LIFE SIMULATOR</span>
+                </div>
+            </div>
+
+
+            <div class="status-container">
+
+                <!-- Subscribers -->
+                <div class="status-card">
+                    <div class="status-icon">▶</div>
+                    <div class="status-info">
+                        <span>구독자</span>
+                        <strong id="subscriber-count">0명</strong>
+                    </div>
+                </div>
+
+                <!-- Money -->
+                <div class="status-card">
+                    <div class="status-icon">₩</div>
+                    <div class="status-info">
+                        <span>보유 금액</span>
+                        <strong id="money-count">0원</strong>
+                    </div>
+                </div>
+
+                <!-- Day -->
+                <div class="status-card">
+                    <div class="status-icon">📅</div>
+                    <div class="status-info">
+                        <span>날짜</span>
+                        <strong id="day-count">1일차</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="top-actions">
+                <button id="settings-button" title="설정">⚙</button>
+                <button id="save-button" title="저장">💾</button>
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             MAIN GAME LAYOUT
+        ========================== -->
+        <div id="game-layout">
+
+
+            <!-- SIDEBAR -->
+            <aside id="sidebar">
+
+                <div class="player-card">
+
+                    <div class="player-avatar">
+                        <img src="assets/images/kimblue/profile.png"
+                             alt="플레이어"
+                             onerror="this.style.display='none'">
+
+                        <div class="avatar-status"></div>
+                    </div>
+
+                    <h2>김블루</h2>
+                    <p class="player-title">초보 유튜버</p>
+
+                    <div class="goal-box">
+                        <div class="goal-header">
+                            <span>🏆 최종 목표</span>
+                        </div>
+
+                        <strong>250 구독자</strong>
+
+                        <div class="goal-progress">
+                            <div id="goal-progress-bar"></div>
+                        </div>
+
+                        <small id="goal-progress-text">0 / 250</small>
+                    </div>
+
+                </div>
+
+
+                <!-- Navigation -->
+                <nav id="navigation">
+
+                    <button class="nav-button active" data-page="home">
+                        <span class="nav-icon">🏠</span>
+                        <span>내 방</span>
+                    </button>
+
+                    <button class="nav-button" data-page="videos">
+                        <span class="nav-icon">🎬</span>
+                        <span>영상 제작</span>
+                    </button>
+
+                    <button class="nav-button" data-page="room">
+                        <span class="nav-icon">🛋️</span>
+                        <span>방 꾸미기</span>
+                    </button>
+
+                    <button class="nav-button" data-page="friends">
+                        <span class="nav-icon">👥</span>
+                        <span>친구</span>
+                    </button>
+
+                    <button class="nav-button" data-page="events">
+                        <span class="nav-icon">🎲</span>
+                        <span>이벤트</span>
+                        <span id="event-badge" class="nav-badge hidden">!</span>
+                    </button>
+
+                    <button class="nav-button" data-page="history">
+                        <span class="nav-icon">📊</span>
+                        <span>활동 기록</span>
+                    </button>
+
+                </nav>
+
+
+                <div class="sidebar-bottom">
+                    <div class="game-version">
+                        BLUE GROW v0.1.0
+                    </div>
+
+                    <div class="game-credit">
+                        Fan-made game
+                    </div>
+                </div>
+
+            </aside>
+
+
+            <!-- =========================
+                 CONTENT AREA
+            ========================== -->
+            <main id="content">
+
+
+                <!-- HOME -->
+                <section id="page-home" class="page active">
+
+                    <div class="page-header">
+                        <div>
+                            <h2>내 방</h2>
+                            <p>오늘도 유튜버 김블루의 하루가 시작됩니다.</p>
+                        </div>
+
+                        <div class="date-label" id="home-date">
+                            Day 1
+                        </div>
+                    </div>
+
+
+                    <!-- Room Scene -->
+                    <div id="room-scene">
+
+                        <div id="room-background">
+
+                            <!-- Room images will be layered here -->
+                            <img id="room-image"
+                                 src="assets/images/room/room_lv1.png"
+                                 alt="김블루의 방"
+                                 onerror="this.style.display='none'">
+
+                            <!-- Character -->
+                            <div id="character-container">
+                                <img id="character-image"
+                                     src="assets/images/kimblue/idle.png"
+                                     alt="김블루 캐릭터"
+                                     onerror="this.style.display='none'">
+                            </div>
+
+                            <!-- Room Interaction Points -->
+                            <button class="room-interaction"
+                                    id="desk-interaction"
+                                    data-interaction="desk"
+                                    title="컴퓨터">
+                            </button>
+
+                            <button class="room-interaction"
+                                    id="bed-interaction"
+                                    data-interaction="bed"
+                                    title="침대">
+                            </button>
+
+                        </div>
+
+
+                        <!-- Room Overlay -->
+                        <div id="room-overlay">
+
+                            <div class="room-speech" id="character-speech">
+                                오늘은 뭘 해볼까?
+                            </div>
+
+                            <div class="room-weather" id="weather-display">
+                                ☀️ 맑음
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Dashboard Cards -->
+                    <div class="dashboard-grid">
+
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-icon">🎬</div>
+                            <div>
+                                <span>총 업로드 영상</span>
+                                <strong id="video-total">0개</strong>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-icon">👁</div>
+                            <div>
+                                <span>누적 조회수</span>
+                                <strong id="view-total">0회</strong>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-icon">😊</div>
+                            <div>
+                                <span>행복도</span>
+                                <strong id="happiness">50</strong>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-icon">⚡</div>
+                            <div>
+                                <span>체력</span>
+                                <strong id="energy">100</strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+
+                        <button class="action-button primary"
+                                data-action="make-video">
+                            🎥 영상 만들기
+                        </button>
+
+                        <button class="action-button"
+                                data-action="sleep">
+                            🛏️ 잠자기
+                        </button>
+
+                        <button class="action-button"
+                                data-action="check-events">
+                            🎲 이벤트 확인
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- VIDEOS -->
+                <section id="page-videos" class="page">
+
+                    <div class="page-header">
+                        <div>
+                            <h2>영상 제작</h2>
+                            <p>새로운 영상을 제작하고 구독자를 늘려보자.</p>
+                        </div>
+                    </div>
+
+                    <div id="video-page-content"></div>
+
+                </section>
+
+
+                <!-- ROOM -->
+                <section id="page-room" class="page">
+
+                    <div class="page-header">
+                        <div>
+                            <h2>방 꾸미기</h2>
+                            <p>돈을 벌어서 더 좋은 환경을 만들어보자.</p>
+                        </div>
+                    </div>
+
+                    <div id="room-page-content"></div>
+
+                </section>
+
+
+                <!-- FRIENDS -->
+                <section id="page-friends" class="page">
+
+                    <div class="page-header">
+                        <div>
+                            <h2>친구</h2>
+                            <p>새로운 인연을 만들고 함께 콘텐츠를 만들어보자.</p>
+                        </div>
+                    </div>
+
+                    <div id="friends-page-content"></div>
+
+                </section>
+
+
+                <!-- EVENTS -->
+                <section id="page-events" class="page">
+
+                    <div class="page-header">
+                        <div>
+                            <h2>이벤트</h2>
+                            <p>김블루의 일상에서 발생한 다양한 사건들.</p>
+                        </div>
+                    </div>
+
+                    <div id="events-page-content"></div>
+
+                </section>
+
+
+                <!-- HISTORY -->
+                <section id="page-history" class="page">
+
+                    <div class="page-header">
+                        <div>
+                            <h2>활동 기록</h2>
+                            <p>지금까지의 유튜버 활동을 확인할 수 있다.</p>
+                        </div>
+                    </div>
+
+                    <div id="history-page-content"></div>
+
+                </section>
+
+
+            </main>
+
+        </div>
+
+
+        <!-- =========================
+             MODAL SYSTEM
+        ========================== -->
+        <div id="modal-container" class="hidden">
+
+            <div id="modal-backdrop"></div>
+
+            <div id="modal-window">
+
+                <button id="modal-close" aria-label="닫기">✕</button>
+
+                <div id="modal-content"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Notification System -->
+        <div id="notification-container"></div>
+
+
+    </div>
+
+
+    <!-- JS MODULE ENTRY -->
+    <script type="module" src="js/main.js"></script>
+
+</body>
+</html>
